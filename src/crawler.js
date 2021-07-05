@@ -3,6 +3,8 @@ import { parse } from "node-html-parser";
 
 const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
+const phoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/g;
+
 export default class Crawler {
   constructor(url) {
     this.urlQueue = [url];
@@ -31,11 +33,11 @@ export default class Crawler {
         url => !this.visitedUrls.has(url)
       );
       this.urlQueue = [...this.urlQueue, ...dedupedUrls];
-
-      this.phoneNumbers = [
-        ...this.phoneNumbers,
-        ...this.getPagePhoneNumbers(pageContent)
-      ];
+      console.log(this.getPagePhoneNumbers(pageContent));
+      const pagePhoneNumbers = this.getPagePhoneNumbers(pageContent);
+      if (pagePhoneNumbers) {
+        this.phoneNumbers = [...this.phoneNumbers, pagePhoneNumbers];
+      }
     } catch (e) {
       // TODO: handle diff errors differently
       console.log("Error visiting ", url);
@@ -49,6 +51,7 @@ export default class Crawler {
 
   fetchPage = async url => {
     const response = await axios.get(url);
+    //console.log(response);
     return response.data;
   };
 
@@ -67,7 +70,7 @@ export default class Crawler {
   };
 
   getPagePhoneNumbers = pageContent => {
-    // TODO: extract phone numbers
-    return [];
+    console.log(pageContent);
+    return pageContent.match(phoneNumberRegex);
   };
 }
