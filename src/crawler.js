@@ -20,6 +20,8 @@ export default class Crawler {
     while (this.urlQueue.length > 0) {
       const urlToFetch = this.urlQueue[0];
       await this.crawlPage(urlToFetch);
+      this.urlQueue = this.urlQueue.slice(1);
+      this.visitedUrls.add(url);
     }
     console.log(this.phoneNumbers);
   };
@@ -50,6 +52,7 @@ export default class Crawler {
 
   fetchPage = async url => {
     const response = await axios.get(url);
+    console.log(response);
     return response.data;
   };
 
