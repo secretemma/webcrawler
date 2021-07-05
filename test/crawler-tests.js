@@ -6,6 +6,8 @@ import sinon from "sinon";
 import Crawler from "../src/crawler";
 
 describe("Crawler", function() {
+  // TODO: tests for crawl, with mock server
+
   describe("crawlPage", function() {
     let axiosStub;
     beforeEach(function() {
@@ -36,8 +38,6 @@ describe("Crawler", function() {
       expect(crawler.urlQueue).to.contain("https://www.anothercoolsite.com");
     });
   });
-
-  describe("fetchPage", function() {});
 
   describe("getPageUrls", function() {
     it("finds a link to an absolute URL", function() {
