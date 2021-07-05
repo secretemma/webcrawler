@@ -33,7 +33,6 @@ export default class Crawler {
         url => !this.visitedUrls.has(url)
       );
       this.urlQueue = [...this.urlQueue, ...dedupedUrls];
-      console.log(this.getPagePhoneNumbers(pageContent));
       const pagePhoneNumbers = this.getPagePhoneNumbers(pageContent);
       if (pagePhoneNumbers) {
         this.phoneNumbers = [...this.phoneNumbers, ...pagePhoneNumbers];
@@ -51,7 +50,6 @@ export default class Crawler {
 
   fetchPage = async url => {
     const response = await axios.get(url);
-    //console.log(response);
     return response.data;
   };
 
@@ -70,7 +68,6 @@ export default class Crawler {
   };
 
   getPagePhoneNumbers = pageContent => {
-    console.log(pageContent);
     return pageContent.match(phoneNumberRegex);
   };
 }
