@@ -57,10 +57,11 @@ export default class Crawler {
     const parsedPage = parse(pageContent);
     return parsedPage.querySelectorAll("a").map(link => {
       const urlOrPath = link.getAttribute("href");
-      // TODO: make sure all URL types are handled
       if (urlRegex.test(urlOrPath)) {
+        // absolute url
         return urlOrPath;
       } else {
+        // relative url
         const [protocol, _, host] = pageUrl.split("/");
         return `${protocol}//${host}/${urlOrPath}`;
       }
