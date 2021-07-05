@@ -3,7 +3,7 @@ import { parse } from "node-html-parser";
 
 const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
-const phoneNumberRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/g;
+const phoneNumberRegex = /[(]{0,1}[0-9]{3}[)]{0,1}[-]{0,1}[0-9]{3}[-]{0,1}[0-9]{4}/g;
 
 export default class Crawler {
   constructor(url) {
@@ -36,7 +36,7 @@ export default class Crawler {
       console.log(this.getPagePhoneNumbers(pageContent));
       const pagePhoneNumbers = this.getPagePhoneNumbers(pageContent);
       if (pagePhoneNumbers) {
-        this.phoneNumbers = [...this.phoneNumbers, pagePhoneNumbers];
+        this.phoneNumbers = [...this.phoneNumbers, ...pagePhoneNumbers];
       }
     } catch (e) {
       // TODO: handle diff errors differently
