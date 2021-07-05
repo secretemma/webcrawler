@@ -24,16 +24,15 @@ describe("Crawler", function() {
       axiosStub.restore();
     });
 
-    it("fetches the page", function() {
+    it("fetches the page", async function() {
       const crawler = new Crawler("https://www.coolsite.com");
-      crawler.crawlPage("https://www.coolsite.com/coolpage");
+      await crawler.crawlPage("https://www.coolsite.com/coolpage");
       sinon.assert.calledWith(axiosStub, "https://www.coolsite.com/coolpage");
     });
 
-    it("adds new urls to the queue", function() {
+    it("adds new urls to the queue", async function() {
       const crawler = new Crawler("https://www.coolsite.com");
-      crawler.crawlPage("https://www.coolsite.com/coolpage");
-      console.log(crawler);
+      await crawler.crawlPage("https://www.coolsite.com/coolpage");
       expect(crawler.urlQueue).to.contain("https://www.anothercoolsite.com");
     });
   });
