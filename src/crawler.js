@@ -63,7 +63,7 @@ export default class Crawler {
       } else {
         // relative url
         const [protocol, _, host] = pageUrl.split("/");
-        return `${protocol}//${host}/${urlOrPath}`;
+        return `${protocol}//${host}${urlOrPath}`;
       }
     });
   };

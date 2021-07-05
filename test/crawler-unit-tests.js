@@ -30,5 +30,25 @@ describe("Crawler", function() {
         "https://therecount.github.io/interview-materials/project-a/2.html"
       );
     });
+
+    it("finds a link to a relative URL", function() {
+      const pageContent = `
+        <html>
+          <body>
+            <p>This is a page!</p>
+            <p><a href="/interview-materials/project-a/3.html">Page #2</a></p>
+          </body>
+        </html>
+      `;
+      const crawler = new Crawler();
+      const urls = crawler.getPageUrls(
+        pageContent,
+        "https://therecount.github.io/interview-materials/project-a/2.html"
+      );
+      expect(urls).to.have.length(1);
+      expect(urls[0]).to.equal(
+        "https://therecount.github.io/interview-materials/project-a/3.html"
+      );
+    });
   });
 });
