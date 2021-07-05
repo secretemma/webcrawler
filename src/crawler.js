@@ -48,7 +48,6 @@ export default class Crawler {
 
   fetchPage = async url => {
     const response = await axios.get(url);
-    console.log(response);
     return response.data;
   };
 
