@@ -43,10 +43,6 @@ export default class Crawler {
       // TODO: handle diff errors differently
       console.log("Error visiting ", url);
       console.log(e);
-      return;
-    } finally {
-      this.urlQueue = this.urlQueue.slice(1);
-      this.visitedUrls.add(url);
     }
   };
 
